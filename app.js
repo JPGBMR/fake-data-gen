@@ -66,7 +66,7 @@ function generateLuhn() {
   let sum = 0;
   for (let i = digits.length - 1; i >= 0; i--) {
     let d = digits[i];
-    if ((digits.length - i) % 2 === 0) {
+    if ((digits.length - i) % 2 === 1) {
       d *= 2;
       if (d > 9) d -= 9;
     }
@@ -237,7 +237,7 @@ function download() {
   const ext        = isMultiCSV ? 'csv' : extMap[state.format];
   const filename   = isMultiCSV
     ? 'fake-multicolumn.csv'
-    : `fake-${activeType().toLowerCase().replace(/[^a-z0-9]+/g, '-')}.${ext}`;
+    : `fake-${activeType().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}.${ext}`;
 
   const content = formatOutput();
   const blob    = new Blob([content], { type: 'text/plain' });
